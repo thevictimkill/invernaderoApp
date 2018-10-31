@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {HomePage} from "../home/home";
+import {Http, HttpModule} from "@angular/http";
 
 /**
  * Generated class for the LoginPage page.
@@ -17,8 +18,10 @@ import {HomePage} from "../home/home";
 export class LoginPage {
 
   home = HomePage;
+  usuario = '';
+  password = '';
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,public http: Http) {
   }
 
   ionViewDidLoad() {
@@ -26,7 +29,17 @@ export class LoginPage {
     console.log('ionViewDidLoad LoginPage');
   }
   clickHome(){
-    this.navCtrl.setRoot(this.home);
+    console.log(this.usuario);
+    console.log(this.password);
+
+    this.http.get('/home/')
+      .subscribe(data=> {
+        console.log(data.text())
+        }, error => {
+        console.log("error");
+    }
+      )
+    //this.navCtrl.setRoot(this.home);
   }
 
 }
